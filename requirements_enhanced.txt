@@ -1,0 +1,15 @@
+# Enhanced Big 3 Scanner Requirements
+yfinance>=0.2.40
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.10.0
+requests>=2.31.0
+python-dateutil>=2.8.2
+pytz>=2023.3
+
+# Additional dependencies for enhanced features
+dataclasses-json>=0.6.0  # For better data serialization
+rich>=13.0.0             # For enhanced terminal output
+click>=8.1.0             # For CLI interface
+plotly>=5.17.0           # For interactive charts
+dash>=2.14.0             # For web dashboard (optional)

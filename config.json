@@ -1,0 +1,27 @@
+{
+  "scanner_config": {
+    "min_score": 8,
+    "min_volume": 1000000,
+    "min_price": 10.0,
+    "max_price": 1000.0,
+    "target_dte": 30,
+    "spread_width": 5,
+    "min_credit_ratio": 0.25,
+    "max_workers": 10,
+    "cache_duration": 300
+  },
+  "custom_watchlist": [
+    "SPY", "QQQ", "IWM", "AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NVDA"
+  ],
+  "export_settings": {
+    "auto_export": true,
+    "export_format": "json",
+    "include_charts": false
+  },
+  "risk_management": {
+    "max_position_size_pct": 2.0,
+    "profit_target_pct": 50,
+    "max_loss_pct": 200,
+    "min_days_to_expiration": 7
+  }
+}
