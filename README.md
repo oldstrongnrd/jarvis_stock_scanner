@@ -1,4 +1,4 @@
-# Big 3 Scanner - Taylor Horton's Options Strategy
+# Jarvis Options Scanner
 
 ## Quick Install
 ```bash
