@@ -4,7 +4,7 @@ Practical Big 3 Scanner - Adjusted for Real Market Conditions
 Shows more results while still maintaining quality standards
 """
 
-from official_big3_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
 import time
 
 print("\n" + "="*90)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Quick test of the upgraded Big 3 Scanner"""
 
-from official_big3_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
 import logging
 
 # Reduce logging noise

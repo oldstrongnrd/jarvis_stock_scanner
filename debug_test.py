@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Debug test to see what's happening"""
 
-from official_big3_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
 import logging
 
 # Enable more logging

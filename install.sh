@@ -1,18 +1,18 @@
 #!/bin/bash
-# Big 3 Scanner Installation Script
+# Jarvis Stock Scanner Installation Script
 
-echo "🚀 Installing Big 3 Scanner..."
+echo "🚀 Installing Jarvis Stock Scanner..."
 
 # Install Python dependencies
 echo "📦 Installing Python dependencies..."
-pip install --user -r requirements_enhanced.txt
+pip install pandas numpy yfinance
 
 # Make scripts executable
-chmod +x big3
+chmod +x jarvis
 
 # Copy to local bin
 mkdir -p ~/.local/bin
-cp big3 ~/.local/bin/
+cp jarvis ~/.local/bin/
 
 # Add to PATH if not already there
 if ! echo $PATH | grep -q "$HOME/.local/bin"; then
@@ -21,11 +21,11 @@ if ! echo $PATH | grep -q "$HOME/.local/bin"; then
 fi
 
 # Create alias
-if ! grep -q "alias big3scanner" ~/.bashrc; then
-    echo 'alias big3scanner="big3"' >> ~/.bashrc
-    echo "✅ Added big3scanner alias"
+if ! grep -q "alias jarvis-scan" ~/.bashrc; then
+    echo 'alias jarvis-scan="jarvis"' >> ~/.bashrc
+    echo "✅ Added jarvis-scan alias"
 fi
 
 echo "✅ Installation complete!"
 echo "📝 Run 'source ~/.bashrc' or open a new terminal"
-echo "🎯 Then use: big3, big3 focus, big3 analyze AAPL, etc."
+echo "🎯 Then use: jarvis, jarvis focus, jarvis analyze AAPL, etc."

@@ -27,7 +27,7 @@ print("\n" + "="*60)
 print("Testing scanner's data fetch method...")
 print("="*60)
 
-from official_big3_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
 
 scanner = OfficialBig3Scanner()
 scanner_data = scanner._fetch_data(ticker)

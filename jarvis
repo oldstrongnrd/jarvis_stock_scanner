@@ -1,0 +1,112 @@
+#!/bin/bash
+# Jarvis Stock Scanner - Enhanced CLI Wrapper
+# Usage: jarvis [command] [options]
+
+SCRIPT_DIR="$HOME/jarvis_stock_scanner"
+SCANNER_SCRIPT="$SCRIPT_DIR/jarvis_scanner.py"
+CLI_SCRIPT="$SCRIPT_DIR/cli_scanner.py"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Check if the script directory exists
+if [ ! -d "$SCRIPT_DIR" ]; then
+    echo -e "${RED}Error: Jarvis Scanner directory not found at $SCRIPT_DIR${NC}"
+    exit 1
+fi
+
+# Function to show help
+show_help() {
+    echo -e "${BLUE}Jarvis Stock Scanner - Professional Options Analysis Tool${NC}"
+    echo ""
+    echo -e "${YELLOW}Usage:${NC}"
+    echo "  jarvis                  # Run full scanner"
+    echo "  jarvis scan             # Run full scanner with options"
+    echo "  jarvis focus            # Scan focus watchlist only"
+    echo "  jarvis analyze TICKER   # Analyze specific ticker"
+    echo "  jarvis quick            # Quick scan (min score 90)"
+    echo "  jarvis help             # Show this help"
+    echo ""
+    echo -e "${YELLOW}Examples:${NC}"
+    echo "  jarvis                  # Full scan"
+    echo "  jarvis focus            # Focus list only"
+    echo "  jarvis analyze AAPL     # Analyze Apple"
+    echo "  jarvis quick            # High-quality setups only"
+    echo ""
+    echo -e "${YELLOW}Advanced:${NC}"
+    echo "  jarvis scan --min-score 100 --detailed GOOGL"
+    echo "  jarvis scan --focus-list-only"
+}
+
+# Change to script directory
+cd "$SCRIPT_DIR"
+
+# Parse command
+case "${1:-scan}" in
+    "help"|"-h"|"--help")
+        show_help
+        ;;
+    "scan"|"")
+        if [ $# -eq 0 ]; then
+            echo -e "${GREEN}🚀 Running Jarvis Scanner...${NC}"
+            python3 "$SCANNER_SCRIPT"
+        else
+            shift
+            python3 "$CLI_SCRIPT" scan "$@"
+        fi
+        ;;
+    "focus")
+        echo -e "${GREEN}⭐ Scanning Focus Watchlist...${NC}"
+        python3 -c "
+from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
+config = OfficialScanConfig(min_score=80, focus_list_only=True)
+scanner = OfficialBig3Scanner(config)
+results = scanner.scan_parallel()
+if not results.empty:
+    print(results)
+    focus_results = scanner.get_focus_list_results()
+    if focus_results:
+        print('\n⭐ FOCUS LIST DETAILED ANALYSIS:')
+        for result in focus_results[:3]:
+            scanner.print_detailed_analysis(result.ticker)
+else:
+    print('No qualifying Focus List setups found')
+"
+        ;;
+    "analyze")
+        if [ -z "$2" ]; then
+            echo -e "${RED}Error: Please specify a ticker to analyze${NC}"
+            echo "Usage: jarvis analyze TICKER"
+            exit 1
+        fi
+        echo -e "${GREEN}🔍 Analyzing $2...${NC}"
+        python3 "$CLI_SCRIPT" analyze "$2"
+        ;;
+    "quick")
+        echo -e "${GREEN}⚡ Quick scan (high-quality setups only)...${NC}"
+        python3 -c "
+from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
+config = OfficialScanConfig(min_score=90, min_strength=80.0)
+scanner = OfficialBig3Scanner(config)
+results = scanner.scan_parallel()
+if not results.empty:
+    print(results)
+    a_plus = scanner.get_a_plus_setups()
+    if a_plus:
+        print('\n★★★ TOP TIER 1 SETUPS:')
+        for result in a_plus[:2]:
+            scanner.print_detailed_analysis(result.ticker)
+else:
+    print('No high-quality setups found')
+"
+        ;;
+    *)
+        echo -e "${RED}Unknown command: $1${NC}"
+        echo "Use 'jarvis help' for usage information"
+        exit 1
+        ;;
+esac

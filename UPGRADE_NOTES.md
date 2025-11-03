@@ -1,8 +1,8 @@
-# Big 3 Scanner - Upgrade Complete! 🚀
+# Jarvis Stock Scanner - Complete Documentation 🚀
 
 ## Overview
 
-Your Big 3 Scanner has been **significantly upgraded** to match the complete specifications from the Big 3 Trading System Complete Guide. The scanner now includes advanced multi-timeframe analysis, institutional activity detection, quality scoring, and Obsidian integration.
+Jarvis Stock Scanner is a **professional-grade options analysis tool** featuring advanced multi-timeframe analysis, institutional activity detection, proprietary quality scoring, and Obsidian integration for trade journaling.
 
 ---
 
@@ -128,12 +128,12 @@ Updated `config.json` with new parameters:
 
 ### Basic Scan
 ```bash
-python official_big3_scanner.py
+python jarvis_scanner.py
 ```
 
 ### Using with Custom Settings
 ```python
-from official_big3_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
 
 config = OfficialScanConfig(
     min_score=90,                  # Higher threshold

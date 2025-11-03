@@ -2,7 +2,7 @@
 
 **Professional Multi-Timeframe Stock Analysis Tool for Options Trading**
 
-Jarvis is an advanced stock scanner that combines multi-timeframe technical analysis, institutional activity detection, and proprietary quality scoring to identify high-probability options trading opportunities. Built with Python and designed for both bull call spreads and bear put spreads.
+Jarvis is an advanced stock scanner that combines multi-timeframe technical analysis, institutional activity detection, and proprietary quality scoring to identify high-probability options trading opportunities. Built with Python and designed for bullish put credit spreads and bearish call credit spreads.
 
 ---
 
@@ -39,7 +39,7 @@ Jarvis is an advanced stock scanner that combines multi-timeframe technical anal
 pip install pandas numpy yfinance
 
 # Run the scanner
-python official_big3_scanner.py
+python jarvis_scanner.py
 
 # Or use the quick test
 python test_scanner.py
@@ -48,10 +48,10 @@ python test_scanner.py
 ### Basic Usage
 
 ```python
-from official_big3_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import JarvisScanner, ScanConfig
 
 # Configure scanner
-config = OfficialScanConfig(
+config = ScanConfig(
     min_score=80,              # Minimum technical score (0-120)
     min_quality_score=55,      # Minimum quality score (0-100)
     min_strength=70.0,         # Minimum strength percentage
@@ -59,7 +59,7 @@ config = OfficialScanConfig(
 )
 
 # Run scan
-scanner = OfficialBig3Scanner(config)
+scanner = JarvisScanner(config)
 results = scanner.scan_parallel()
 
 # Display results
@@ -69,7 +69,7 @@ print(results)
 ### Analyze Specific Ticker
 
 ```python
-scanner = OfficialBig3Scanner()
+scanner = JarvisScanner()
 result = scanner.analyze_ticker('AAPL')
 
 if result:
@@ -157,10 +157,10 @@ The proprietary 100-point quality scoring system evaluates:
 7. ✅ MFI in favorable zone (>50 for longs, <50 for shorts)
 
 ### Position Sizing
-- Bull Call Spreads: Use Tier 1 bullish setups
-- Bear Put Spreads: Use Tier 1 bearish setups
+- Bullish Put Credit Spreads: Use Tier 1 bullish setups (sell puts below support)
+- Bearish Call Credit Spreads: Use Tier 1 bearish setups (sell calls above resistance)
 - Target 30-45 DTE for optimal time decay
-- Sell strike at +1 ATR (conservative) or +2 ATR (aggressive)
+- Place short strike at support/resistance levels using ATR targets
 
 ### Profit Targets
 - Close 50% at +1 ATR
@@ -174,7 +174,7 @@ The proprietary 100-point quality scoring system evaluates:
 
 ```
 jarvis_stock_scanner/
-├── official_big3_scanner.py    # Main scanner engine (1,600+ lines)
+├── jarvis_scanner.py            # Main scanner engine (1,600+ lines)
 ├── practical_scan.py            # Practical scan with adjusted thresholds
 ├── test_scanner.py              # Quick test script
 ├── config.json                  # Configuration settings
