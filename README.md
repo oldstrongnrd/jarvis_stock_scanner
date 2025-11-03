@@ -229,8 +229,8 @@ Rank  Ticker  Tier  Quality  Big3  Strength  Direction  Squeezes  Perfect  VWAP 
 ## 📚 Documentation
 
 For complete documentation, see:
-- **UPGRADE_NOTES.md** - Comprehensive feature guide
-- **Big_3_Trading_System_Complete_Guide.md** - Strategy details
+- **UPGRADE_NOTES.md** - Comprehensive feature guide and technical documentation
+- **README.md** - Quick start and usage examples
 
 ---
 

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Official Big 3 Scanner - Matches Taylor Horton's Exact Methodology
-Based on the official Big 3 Leaderboard spreadsheet analysis
+Jarvis Stock Scanner - Professional Multi-Timeframe Analysis Tool
 
-Key Features:
-- 120-point scoring system (matches official)
-- Strength percentage calculation
-- Taylor's Focus List methodology
-- Official watchlist and criteria
+Advanced options trading scanner with proprietary algorithms:
+- 120-point technical scoring system
+- Multi-timeframe squeeze detection (W, D, 4H, 1H)
+- Quality scoring (0-100) with tier classification
+- Institutional activity detection (CYAN/MAGENTA)
+- VWAP, MFI, and volume analysis
 """
 
 import yfinance as yf
@@ -32,11 +32,11 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class ScanConfig:
-    """Configuration matching official Big 3 methodology"""
+    """Scanner configuration with scoring thresholds"""
     min_score: int = 80           # Minimum score (out of 120)
     min_strength: float = 70.0    # Minimum strength percentage
     min_quality_score: int = 55   # Minimum quality score (0-100)
-    focus_list_only: bool = False # Scan only Taylor's Focus List
+    focus_list_only: bool = False # Scan only Focus Watchlist
     include_etfs: bool = True     # Include ETFs and indexes
     target_dte: int = 30          # Target days to expiration
     spread_width: int = 5         # Default spread width
@@ -112,7 +112,7 @@ class ScanResult:
     distance_to_ema21_pct: float # Distance from 21 EMA
 
     # Flags
-    is_focus_list: bool          # In Taylor's Focus List
+    is_focus_list: bool          # In Focus Watchlist
     is_a_plus_setup: bool        # A+ setup (score >= 100)
     perfect_nested_squeeze: bool # All 4 timeframes in squeeze
 
@@ -128,8 +128,8 @@ class JarvisScanner:
         self.config = config or ScanConfig()
         self.results = []
         
-        # Official watchlists from the spreadsheet
-        self.taylor_focus_list = [
+        # Scanner watchlists
+        self.focus_watchlist = [
             'AMZN', 'AVGO', 'GOOGL', 'QQQ', 'TSM', 'SPX', 'TSLA', 'NFLX', 'AAPL'
         ]
         
@@ -148,7 +148,7 @@ class JarvisScanner:
             'SPY', 'QQQ', 'IWM', 'DIA', 'RSP', 'XLF', 'XLE', 'XLK', 'XLV', 'XLI', 'XLY', 'XLB', 'XLC',
             'SMH', 'IBB', 'IYR', 'ARKK', 'TAN', 'IYT', 'XLU', 'XLP', 'GLD', 'SLV', 'GBTC',
             
-            # Taylor's Focus List & Big 10
+            # Focus Watchlist & Big 10
             'AMZN', 'AVGO', 'GOOGL', 'TSM', 'TSLA', 'NFLX', 'AAPL', 'META', 'NVDA', 'MSFT',
             
             # Top Bull Candidates
@@ -167,7 +167,7 @@ class JarvisScanner:
     def get_watchlist(self) -> List[str]:
         """Get the appropriate watchlist based on configuration"""
         if self.config.focus_list_only:
-            return self.taylor_focus_list
+            return self.focus_watchlist
         else:
             return list(set(self.extended_watchlist))  # Remove duplicates
     
@@ -880,7 +880,7 @@ class JarvisScanner:
             return False, 0    
 
     def analyze_ticker(self, ticker: str) -> Optional[ScanResult]:
-        """Analyze a single ticker using complete Big 3 methodology with multi-timeframe analysis"""
+        """Analyze a single ticker using complete multi-timeframe analysis methodology with multi-timeframe analysis"""
         try:
             # Fetch daily data (primary timeframe)
             data = self._fetch_data(ticker)
@@ -908,12 +908,12 @@ class JarvisScanner:
             # Perfect nested squeeze
             perfect_nested_squeeze = all([weekly_squeeze, daily_squeeze, four_hour_squeeze, one_hour_squeeze])
 
-            # Calculate Big 3 components
+            # Calculate Technical score components
             trend_score, trend_details = self._calculate_trend_score(data)
             structure_score, structure_details = self._calculate_structure_score(data)
             momentum_score, momentum_details = self._calculate_momentum_score(data)
 
-            # Calculate total Big 3 score
+            # Calculate total Technical score
             base_score = trend_score + structure_score + momentum_score
             total_score = base_score + squeeze_bonus
             strength_pct = (total_score / 120) * 100
@@ -997,8 +997,8 @@ class JarvisScanner:
                 quality_score < self.config.min_quality_score):
                 return None
 
-            # Check if in Taylor's Focus List
-            is_focus_list = ticker in self.taylor_focus_list
+            # Check if in Focus Watchlist
+            is_focus_list = ticker in self.focus_watchlist
 
             # A+ setup criteria
             is_a_plus = total_score >= 100 or strength_pct >= 85
@@ -1083,7 +1083,7 @@ class JarvisScanner:
     def scan_parallel(self) -> pd.DataFrame:
         """Scan all tickers using parallel processing"""
         watchlist = self.get_watchlist()
-        logger.info(f"Scanning {len(watchlist)} tickers using official Big 3 methodology...")
+        logger.info(f"Scanning {len(watchlist)} tickers using multi-timeframe analysis...")
         logger.info(f"Minimum score: {self.config.min_score}/120, Minimum strength: {self.config.min_strength}%")
         
         results = []
@@ -1184,9 +1184,9 @@ class JarvisScanner:
             return
         
         print(f"\n{'='*80}")
-        print(f"📊 OFFICIAL BIG 3 ANALYSIS: {ticker}")
+        print(f"📊 JARVIS SCANNER ANALYSIS: {ticker}")
         if result.is_focus_list:
-            print("⭐ TAYLOR'S FOCUS LIST ⭐")
+            print("⭐ FOCUS WATCHLIST ⭐")
         print(f"{'='*80}")
         
         print(f"\n💰 Current Price: ${result.current_price:.2f}")
@@ -1432,7 +1432,7 @@ class JarvisScanner:
         return filename
     
     def get_focus_list_results(self) -> List[ScanResult]:
-        """Get results for Taylor's Focus List only"""
+        """Get results for Focus Watchlist only"""
         return [r for r in self.results if r.is_focus_list]
     
     def get_a_plus_setups(self) -> List[ScanResult]:
@@ -1445,15 +1445,15 @@ class JarvisScanner:
 
 
 def main():
-    """Main function demonstrating enhanced Big 3 scanner with multi-timeframe analysis"""
+    """Main function demonstrating enhanced Jarvis scanner with multi-timeframe analysis"""
     print("\n" + "="*90)
-    print("🚀 BIG 3 SCANNER - ENHANCED EDITION")
+    print("🚀 JARVIS STOCK SCANNER")
     print("Complete Multi-Timeframe Analysis with Quality Scoring")
     print("="*90 + "\n")
 
     # Configuration options
     config = ScanConfig(
-        min_score=80,             # Minimum Big 3 score (out of 120)
+        min_score=80,             # Minimum Technical score (out of 120)
         min_strength=70.0,        # Minimum strength percentage
         min_quality_score=55,     # Minimum quality score (out of 100)
         focus_list_only=False,    # Scan all tickers, not just focus list
@@ -1489,7 +1489,7 @@ def main():
         perfect_squeeze_count = len([r for r in scanner.results if r.perfect_nested_squeeze])
 
         print(f"\n{'='*90}")
-        print("📈 ENHANCED BIG 3 LEADERBOARD")
+        print("📈 JARVIS SCANNER RESULTS")
         print("="*90)
         print(f"\n📊 Results Summary:")
         print(f"   • Total Setups: {len(scanner.results)}")
@@ -1528,14 +1528,14 @@ def main():
         focus_results = scanner.get_focus_list_results()
         if focus_results:
             print(f"\n{'='*90}")
-            print("⭐ TAYLOR'S FOCUS LIST RESULTS")
+            print("⭐ FOCUS WATCHLIST RESULTS")
             print("="*90)
             for result in focus_results:
                 print(f"  {result.ticker}: Quality {result.quality_score}/100 | Big3 {result.big3_score}/120 | {result.tier}")
 
         # Enhanced trading guidelines
         print(f"\n{'='*90}")
-        print("📚 ENHANCED BIG 3 TRADING GUIDELINES")
+        print("📚 JARVIS TRADING GUIDELINES")
         print("="*90)
         print("""
 🎯 TIER SYSTEM:

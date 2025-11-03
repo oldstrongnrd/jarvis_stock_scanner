@@ -108,10 +108,10 @@ Updated `config.json` with new parameters:
 ```json
 {
   "scanner_config": {
-    "min_score": 80,              // Minimum Big 3 score (0-120)
+    "min_score": 80,              // Minimum Technical score (0-120)
     "min_strength": 70.0,          // Minimum strength percentage
     "min_quality_score": 55,       // Minimum quality score (0-100)
-    "focus_list_only": false,      // Scan only Taylor's Focus List
+    "focus_list_only": false,      // Scan only Focus Watchlist
     "include_etfs": true,          // Include ETFs and indexes
     "min_volume": 500000,          // Minimum average daily volume
     "min_price": 10.0,             // Minimum stock price
@@ -501,7 +501,7 @@ for setup in bearish_tier1:
 
 If you encounter issues:
 1. Check this document first
-2. Review the Big_3_Trading_System_Complete_Guide.md
+2. Review UPGRADE_NOTES.md for complete documentation
 3. Verify Python and dependencies are installed
 4. Check config.json syntax
 
@@ -509,7 +509,7 @@ If you encounter issues:
 
 ## 🎉 Conclusion
 
-Your Big 3 Scanner is now a **professional-grade trading tool** that matches the complete specifications from the Big 3 Trading System. With multi-timeframe analysis, quality scoring, institutional activity detection, and Obsidian integration, you have everything needed to identify high-probability vertical spread opportunities.
+Jarvis Stock Scanner is now a **professional-grade trading tool** that matches the complete specifications . With multi-timeframe analysis, quality scoring, institutional activity detection, and Obsidian integration, you have everything needed to identify high-probability vertical spread opportunities.
 
 **Happy Trading! 🚀**
 

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Command Line Interface for Big 3 Scanner
+Command Line Interface for Jarvis Stock Scanner
 Provides easy access to scanning functionality with various options
 """
 
 import click
 import json
 from pathlib import Path
-from big3_scanner_improved import Enhanced Big3Scanner, ScanConfig
+from jarvis_scanner import JarvisScanner, ScanConfig
 import logging
 
 # Configure logging
@@ -30,19 +30,19 @@ def load_config(config_file: str = "config.json") -> dict:
 
 @click.group()
 def cli():
-    """Big 3 Put Credit Spread Scanner CLI"""
+    """Jarvis Stock Scanner CLI"""
     pass
 
 
 @cli.command()
-@click.option('--min-score', '-s', default=8, help='Minimum Big 3 score (0-12)')
+@click.option('--min-score', '-s', default=8, help='Minimum Technical score (0-12)')
 @click.option('--min-volume', '-v', default=1000000, help='Minimum daily volume')
 @click.option('--config', '-c', default='config.json', help='Configuration file path')
 @click.option('--export', '-e', is_flag=True, help='Export results to JSON')
 @click.option('--detailed', '-d', help='Show detailed analysis for specific ticker')
 @click.option('--workers', '-w', default=10, help='Number of parallel workers')
 def scan(min_score, min_volume, config, export, detailed, workers):
-    """Run the Big 3 scanner"""
+    """Run the Jarvis scanner"""
     
     # Load configuration
     config_data = load_config(config)
@@ -62,9 +62,9 @@ def scan(min_score, min_volume, config, export, detailed, workers):
     custom_tickers = config_data.get('custom_watchlist')
     
     # Initialize and run scanner
-    scanner = Enhanced Big3Scanner(scan_config, custom_tickers)
+    scanner = JarvisScanner(scan_config, custom_tickers)
     
-    click.echo("🚀 Starting Big 3 Scanner...")
+    click.echo("🚀 Starting Jarvis Scanner...")
     results_df = scanner.scan_parallel()
     
     if not results_df.empty:
@@ -91,7 +91,7 @@ def analyze(ticker, config):
     scanner_config = config_data.get('scanner_config', {})
     scan_config = ScanConfig(**scanner_config)
     
-    scanner = Enhanced Big3Scanner(scan_config)
+    scanner = JarvisScanner(scan_config)
     
     click.echo(f"🔍 Analyzing {ticker.upper()}...")
     result = scanner.analyze_ticker(ticker.upper())
@@ -115,7 +115,7 @@ def create_watchlist(output):
     ]
     
     watchlist_data = {
-        "name": "Custom Big 3 Watchlist",
+        "name": "Custom Watchlist",
         "description": "High-volume, optionable stocks for credit spreads",
         "tickers": default_watchlist,
         "created": "2024-01-01",

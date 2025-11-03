@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Quick test of the upgraded Big 3 Scanner"""
+"""Quick test of the upgraded Jarvis Scanner"""
 
 from jarvis_scanner import JarvisScanner, ScanConfig
 import logging
@@ -8,7 +8,7 @@ import logging
 logging.basicConfig(level=logging.WARNING)
 
 print("="*60)
-print("BIG 3 SCANNER - QUICK TEST")
+print("JARVIS SCANNER - QUICK TEST")
 print("="*60)
 
 # Configure scanner with lower thresholds for testing

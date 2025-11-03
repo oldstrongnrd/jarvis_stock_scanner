@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Practical Big 3 Scanner - Adjusted for Real Market Conditions
+Practical Jarvis Scanner - Adjusted for Real Market Conditions
 Shows more results while still maintaining quality standards
 """
 
@@ -8,7 +8,7 @@ from jarvis_scanner import JarvisScanner, ScanConfig
 import time
 
 print("\n" + "="*90)
-print("🚀 BIG 3 SCANNER - PRACTICAL EDITION")
+print("🚀 JARVIS SCANNER - PRACTICAL EDITION")
 print("Adjusted thresholds for current market conditions")
 print("="*90 + "\n")
 
@@ -139,6 +139,6 @@ else:
     print("   • Most stocks lack clear trend direction")
     print("   • Few multi-timeframe squeezes active")
     print("   • Wait for better market conditions")
-    print("\n📊 Try scanning Taylor's Focus List only:")
+    print("\n📊 Try scanning Focus Watchlist only:")
     print("   python practical_scan.py --focus-list")
     print()
