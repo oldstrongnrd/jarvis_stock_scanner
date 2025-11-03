@@ -133,22 +133,22 @@ python jarvis_scanner.py
 
 ### Using with Custom Settings
 ```python
-from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import JarvisScanner, ScanConfig
 
-config = OfficialScanConfig(
+config = ScanConfig(
     min_score=90,                  # Higher threshold
     min_quality_score=70,          # Tier 2+ only
     enable_obsidian=True,          # Enable Obsidian export
     obsidian_vault="/path/to/vault"
 )
 
-scanner = OfficialBig3Scanner(config)
+scanner = JarvisScanner(config)
 results = scanner.scan_parallel()
 ```
 
 ### Analyze Specific Ticker
 ```python
-scanner = OfficialBig3Scanner()
+scanner = JarvisScanner()
 result = scanner.analyze_ticker("AAPL")
 
 if result:
@@ -163,7 +163,7 @@ if result:
 
 ### Export to Obsidian
 ```python
-scanner = OfficialBig3Scanner()
+scanner = JarvisScanner()
 scanner.scan_parallel()
 
 # Generate markdown
@@ -400,7 +400,7 @@ pip install -r requirements_enhanced.txt
 You can add custom filtering logic:
 
 ```python
-scanner = OfficialBig3Scanner()
+scanner = JarvisScanner()
 scanner.scan_parallel()
 
 # Filter for perfect nested squeezes only

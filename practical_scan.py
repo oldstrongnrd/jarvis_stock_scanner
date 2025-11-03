@@ -4,7 +4,7 @@ Practical Big 3 Scanner - Adjusted for Real Market Conditions
 Shows more results while still maintaining quality standards
 """
 
-from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import JarvisScanner, ScanConfig
 import time
 
 print("\n" + "="*90)
@@ -13,7 +13,7 @@ print("Adjusted thresholds for current market conditions")
 print("="*90 + "\n")
 
 # More realistic thresholds for actual market scanning
-config = OfficialScanConfig(
+config = ScanConfig(
     min_score=70,             # Was 80 - slightly lower
     min_strength=60.0,        # Was 70% - slightly lower
     min_quality_score=40,     # Was 55 - lower to see more setups
@@ -27,7 +27,7 @@ config = OfficialScanConfig(
 )
 
 # Initialize scanner
-scanner = OfficialBig3Scanner(config)
+scanner = JarvisScanner(config)
 
 # Run scan
 print("📊 Starting practical scan...")

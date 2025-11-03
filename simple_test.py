@@ -27,9 +27,9 @@ print("\n" + "="*60)
 print("Testing scanner's data fetch method...")
 print("="*60)
 
-from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import JarvisScanner, ScanConfig
 
-scanner = OfficialBig3Scanner()
+scanner = JarvisScanner()
 scanner_data = scanner._fetch_data(ticker)
 
 if scanner_data is not None:

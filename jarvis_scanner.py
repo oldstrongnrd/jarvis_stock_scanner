@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class OfficialScanConfig:
+class ScanConfig:
     """Configuration matching official Big 3 methodology"""
     min_score: int = 80           # Minimum score (out of 120)
     min_strength: float = 70.0    # Minimum strength percentage
@@ -50,7 +50,7 @@ class OfficialScanConfig:
 
 
 @dataclass
-class OfficialBig3Result:
+class ScanResult:
     """Result structure matching official methodology"""
     ticker: str
     current_price: float
@@ -121,11 +121,11 @@ class OfficialBig3Result:
     analysis_date: str
 
 
-class OfficialBig3Scanner:
-    """Scanner implementing Taylor Horton's exact Big 3 methodology"""
-    
-    def __init__(self, config: Optional[OfficialScanConfig] = None):
-        self.config = config or OfficialScanConfig()
+class JarvisScanner:
+    """Jarvis Stock Scanner - Professional Multi-Timeframe Analysis Tool"""
+
+    def __init__(self, config: Optional[ScanConfig] = None):
+        self.config = config or ScanConfig()
         self.results = []
         
         # Official watchlists from the spreadsheet
@@ -879,7 +879,7 @@ class OfficialBig3Scanner:
             logger.error(f"Error detecting squeeze: {e}")
             return False, 0    
 
-    def analyze_ticker(self, ticker: str) -> Optional[OfficialBig3Result]:
+    def analyze_ticker(self, ticker: str) -> Optional[ScanResult]:
         """Analyze a single ticker using complete Big 3 methodology with multi-timeframe analysis"""
         try:
             # Fetch daily data (primary timeframe)
@@ -1006,7 +1006,7 @@ class OfficialBig3Scanner:
             # Get sector
             sector = self._get_sector(ticker)
 
-            return OfficialBig3Result(
+            return ScanResult(
                 ticker=ticker,
                 current_price=current_price,
                 big3_score=total_score,
@@ -1301,7 +1301,7 @@ class OfficialBig3Scanner:
 
         return md
 
-    def _format_setup_markdown(self, result: OfficialBig3Result) -> str:
+    def _format_setup_markdown(self, result: ScanResult) -> str:
         """Format a single setup as markdown"""
 
         # Squeeze indicators
@@ -1431,15 +1431,15 @@ class OfficialBig3Scanner:
         logger.info(f"Results exported to {filename}")
         return filename
     
-    def get_focus_list_results(self) -> List[OfficialBig3Result]:
+    def get_focus_list_results(self) -> List[ScanResult]:
         """Get results for Taylor's Focus List only"""
         return [r for r in self.results if r.is_focus_list]
     
-    def get_a_plus_setups(self) -> List[OfficialBig3Result]:
+    def get_a_plus_setups(self) -> List[ScanResult]:
         """Get A+ setups (score >= 100)"""
         return [r for r in self.results if r.is_a_plus_setup]
     
-    def get_squeeze_setups(self) -> List[OfficialBig3Result]:
+    def get_squeeze_setups(self) -> List[ScanResult]:
         """Get squeeze setups"""
         return [r for r in self.results if r.squeeze_active]
 
@@ -1452,7 +1452,7 @@ def main():
     print("="*90 + "\n")
 
     # Configuration options
-    config = OfficialScanConfig(
+    config = ScanConfig(
         min_score=80,             # Minimum Big 3 score (out of 120)
         min_strength=70.0,        # Minimum strength percentage
         min_quality_score=55,     # Minimum quality score (out of 100)
@@ -1466,7 +1466,7 @@ def main():
     )
 
     # Initialize scanner
-    scanner = OfficialBig3Scanner(config)
+    scanner = JarvisScanner(config)
 
     # Run scan
     print("📊 Starting multi-timeframe scan...")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Quick test of the upgraded Big 3 Scanner"""
 
-from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import JarvisScanner, ScanConfig
 import logging
 
 # Reduce logging noise
@@ -12,14 +12,14 @@ print("BIG 3 SCANNER - QUICK TEST")
 print("="*60)
 
 # Configure scanner with lower thresholds for testing
-config = OfficialScanConfig(
+config = ScanConfig(
     min_score=60,          # Lower for testing
     min_quality_score=40,  # Lower for testing
     max_workers=1
 )
 
 # Initialize scanner
-scanner = OfficialBig3Scanner(config)
+scanner = JarvisScanner(config)
 
 # Test with AAPL
 print("\nTesting with AAPL...")

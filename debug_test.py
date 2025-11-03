@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Debug test to see what's happening"""
 
-from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import JarvisScanner, ScanConfig
 import logging
 
 # Enable more logging
@@ -12,14 +12,14 @@ print("DEBUG TEST")
 print("="*60)
 
 # Very low thresholds to see any result
-config = OfficialScanConfig(
+config = ScanConfig(
     min_score=1,           # Very low
     min_quality_score=1,   # Very low
     min_strength=1.0,      # Very low
     max_workers=1
 )
 
-scanner = OfficialBig3Scanner(config)
+scanner = JarvisScanner(config)
 
 # Test with multiple tickers
 tickers = ['AAPL', 'MSFT', 'SPY', 'QQQ']

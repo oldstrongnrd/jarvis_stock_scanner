@@ -62,9 +62,9 @@ case "${1:-scan}" in
     "focus")
         echo -e "${GREEN}⭐ Scanning Focus Watchlist...${NC}"
         python3 -c "
-from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
-config = OfficialScanConfig(min_score=80, focus_list_only=True)
-scanner = OfficialBig3Scanner(config)
+from jarvis_scanner import JarvisScanner, ScanConfig
+config = ScanConfig(min_score=80, focus_list_only=True)
+scanner = JarvisScanner(config)
 results = scanner.scan_parallel()
 if not results.empty:
     print(results)
@@ -89,9 +89,9 @@ else:
     "quick")
         echo -e "${GREEN}⚡ Quick scan (high-quality setups only)...${NC}"
         python3 -c "
-from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
-config = OfficialScanConfig(min_score=90, min_strength=80.0)
-scanner = OfficialBig3Scanner(config)
+from jarvis_scanner import JarvisScanner, ScanConfig
+config = ScanConfig(min_score=90, min_strength=80.0)
+scanner = JarvisScanner(config)
 results = scanner.scan_parallel()
 if not results.empty:
     print(results)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Detailed test with error catching"""
 
-from jarvis_scanner import OfficialBig3Scanner, OfficialScanConfig
+from jarvis_scanner import JarvisScanner, ScanConfig
 import logging
 import traceback
 
@@ -12,7 +12,7 @@ print("="*60)
 print("DETAILED TEST WITH ERROR HANDLING")
 print("="*60)
 
-config = OfficialScanConfig(
+config = ScanConfig(
     min_score=1,
     min_quality_score=1,
     min_strength=1.0,
@@ -21,7 +21,7 @@ config = OfficialScanConfig(
     max_workers=1
 )
 
-scanner = OfficialBig3Scanner(config)
+scanner = JarvisScanner(config)
 
 print("\nAnalyzing AAPL with full error tracking...")
 
