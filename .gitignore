@@ -26,3 +26,4 @@ Thumbs.db
 # Personal data
 personal_config.json
 my_watchlist.json
+.claude/
